@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Burger - Menu</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 10px;
+        overflow-x: hidden; /* by nie było widać scrolla */
+        font-family: arial;
+      }
+
+      body {
+        background: var(--blue);
+      }
+
+      :root {
+        --blue: #702a9f;
+        --blueHover: #bf77ef;
+      }
+      /* NAV STYLE */
+      nav {
+        position: relative;
+        display: flex;
+        background-color: rgb(245, 245, 245);
+        height: 8vh;
+        padding: 20px 15px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        width: 40%;
+        justify-content: space-around;
+      }
+
+      a {
+        position: relative;
+        text-decoration: none;
+        color: var(--blue);
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-style: italic;
+        padding: 5px;
+      }
+
+      a:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        background-color: var(--blue);
+        height: 0.15em;
+        border-radius: 10px;
+        transition: 0.3s ease-in-out;
+      }
+
+      a:hover::after {
+        width: 100%;
+      }
+
+      /* burger menu */
+
+      .burger {
+        display: none;
+        width: 39px;
+      }
+
+      .line {
+        display: block;
+        height: 4px;
+        width: 100%;
+        margin: 5px 0px;
+        border-radius: 10px;
+        background-color: #702a9f;
+        transition: 0.3s ease-in-out;
+      }
+      /* media query*/
+
+      @media only screen and (max-width: 700px) {
+        .burger {
+          display: block;
+          transform: 0.3s ease-in-out;
+        }
+
+        ul {
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center;
+          position: absolute;
+          top: 8vh;
+          right: 0;
+          height: 92vh;
+          width: 100%;
+          background-color: var(--blueHover);
+          transform: translate(100%);
+          transition: 0.3s ease-in-out;
+        }
+
+        a {
+          color: white;
+          font-size: 2.5rem;
+          letter-spacing: 2px;
+        }
+
+        a:after {
+          background-color: #fff;
+        }
+
+        /* burger after click */
+
+        .burger.active .line:first-child {
+          transform: translateY(-300px);
+        }
+
+        .burger.active .line:nth-child(2) {
+          transform: rotate(-45deg) translateY(6px);
+        }
+
+        .burger.active .line:nth-child(3) {
+          transform: rotate(45deg) translateY(-6px);
+        }
+
+        ul.active {
+          transform: translate(0%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">IMG</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="burger">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </nav>
+
+    <script>
+      const burger = document.querySelector(".burger");
+      const ul = document.querySelector("ul");
+      const li = document.querySelectorAll("li");
+
+      const close = () => {
+        burger.classList.remove("active");
+        ul.classList.remove("active");
+      };
+
+      li.forEach((i) => i.addEventListener("click", close));
+
+      const open = () => {
+        ul.classList.toggle("active");
+        burger.classList.toggle("active");
+      };
+
+      burger.addEventListener("click", open);
+    </script>
+  </body>
+</html>
